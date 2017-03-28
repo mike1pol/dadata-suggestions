@@ -1,0 +1,31 @@
+{
+  "name": "dadata-suggestions",
+  "version": "1.0.0",
+  "description": "Dadata.ru suggestions",
+  "main": "index.js",
+  "scripts": {
+    "doc": "./node_modules/.bin/jsdoc2md index.js > API.md",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mike1pol/dadata-suggestions.git"
+  },
+  "pre-commit": [
+    "doc"
+  ],
+  "keywords": [
+    "dadata",
+    "suggestions"
+  ],
+  "author": "Mikhail Poluboyarinov <mikle.sol@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mike1pol/dadata-suggestions/issues"
+  },
+  "homepage": "https://github.com/mike1pol/dadata-suggestions#readme",
+  "devDependencies": {
+    "jsdoc-to-markdown": "^3.0.0",
+    "pre-commit": "^1.2.2"
+  }
+}
