@@ -1,6 +1,6 @@
 {
   "name": "dadata-suggestions",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Dadata.ru suggestions",
   "main": "index.js",
   "scripts": {
@@ -11,9 +11,6 @@
     "type": "git",
     "url": "git+https://github.com/mike1pol/dadata-suggestions.git"
   },
-  "pre-commit": [
-    "doc"
-  ],
   "keywords": [
     "dadata",
     "suggestions"

@@ -1,9 +1,9 @@
 'use strict';
-
+const API_KEY = '';
 const Dadata = require('./index');
-const dadata = new Dadata('2fb25e10358f6093876f1cbbd390e2917e7d5503');
+const dadata = new Dadata(API_KEY);
 
-dadata.email('pma')
+dadata.bank({ query: 'сбербанк' })
   .then((data) => {
     console.log(data);
   })

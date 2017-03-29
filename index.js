@@ -5,26 +5,23 @@ const https = require('https');
 class Dadata {
   /**
    * API constructor
-   * @param {string} apiKey Dadata api key
+   * @param {string} apiKey Ключ dadata.ru
    */
   constructor(apiKey) {
     this.apiKey = apiKey;
   }
 
   /**
-   * Internal request client
+   * Клиент
    * @private
-   * @param {string} api API name
-   * @param {string} query Search query
-   * @param {number} [count=10] count of results
-   * @returns {Promise}
+   * @param {string} api Название метода
+   * @param {params} params Параметры
+   * @returns {promise}
    */
-  _client(api, query, count) {
-    count = count || 10;
-    const request = {
-      query,
-      count
-    };
+  _client(api, params) {
+    const request = Object.assign({
+      count: 10
+    }, params);
     const options = {
       method: 'POST',
       hostname: 'suggestions.dadata.ru',
@@ -63,49 +60,73 @@ class Dadata {
     });
   }
   /**
-   * Search FIO
-   * @param {string} query FIO query
-   * @param {number} [count=10] Count of results
-   * @return {Promise}
+   * Подсказки по ФИО
+   * @see {@link https://confluence.hflabs.ru/pages/viewpage.action?pageId=502038691|Документация}
+   * @param {object} params Параметры
+   * @param {string} params.query Запрос
+   * @param {number} [params.count=10] Кол-во возвращаемых результатов
+   * @param {string[]} [params.parts=null] Подсказки по части ФИО (NAME, SURNAME, PATRONYMIC)
+   * @param {string} [params.gender=UNKNOWN] Пол
+   * @return {promise<object[]>}
    */
-  fio(query, count) {
-    return this._client('fio', query, count)
+  fio(params) {
+    return this._client('fio', params)
   }
   /**
-   * Search address
-   * @param {string} query Address query
-   * @param {number} [count=10] Count of results
-   * @return {Promise}
+   * Подсказки по адресу
+   * @see {@link https://confluence.hflabs.ru/pages/viewpage.action?pageId=502038680|Документация}
+   * @param {object} params Параметры
+   * @param {string} params.query Запрос
+   * @param {number} [params.count=10] Кол-во возвращаемых результатов
+   * @param {object} [params.locations=] Ограничение поиска адреса
+   * @param {number} params.location.region_fias_id Ограничение по ФИАС коду региона
+   * @param {number} params.location.area_fias_id Ограничение по ФИАС коду области
+   * @param {number} params.location.city_fias_id Ограничение по ФИАС коду города
+   * @param {number} params.location.settlement_fias_id Ограничение по ФИАС коду населенного пункта
+   * @param {number} params.location.street_fias_id Ограничение по ФИАС коду улицы
+   * @return {promise<object[]>}
    */
-  address(query, count) {
-    return this._client('address', query, count)
+  address(params) {
+    return this._client('address', params)
   }
   /**
-   * Search organisations
-   * @param {string} query Organisations query
-   * @param {number} [count=10] Count of results
-   * @return {Promise}
+   * Подсказки по организациям
+   * @see {@link https://confluence.hflabs.ru/pages/viewpage.action?pageId=502038697|Документация}
+   * @param {object} params Параметры
+   * @param {string} params.query Запрос
+   * @param {number} [params.count=10] Кол-во возвращаемых результатов
+   * @param {string[]} [params.status=null] Фильтр по статусу организации (ACTIVE - активные, LIQUIDATING - ликвидируемые, LIQUIDATED - ликвидированные)
+   * @param {string} [params.type=null] Фильтр по юридическим лицам (LEGAL) или индивидуальным предпринимателям (INDIVIDUAL)
+   * @param {object[]} params.locations Фильтр по региону
+   * @param {number} params.locations.kladr_id Двухзначный код региона по КЛАДР
+   * @return {promise<object[]>}
    */
   party(query, count) {
     return this._client('party', query, count)
   }
   /**
-   * Search bank
-   * @param {string} query Bank query
-   * @param {number} [count=10] Count of results
-   * @return {Promise}
+   * Подсказки по банкам
+   * @see {@link https://confluence.hflabs.ru/pages/viewpage.action?pageId=502038711|Документация}
+   * @param {object} params Параметры
+   * @param {string} params.query Запрос
+   * @param {number} [params.count=10] Кол-во возвращаемых результатов
+   * @param {string[]} [params.status=null] Фильтр по статусу (ACTIVE - активные, LIQUIDATING - ликвидируемые, LIQUIDATED - ликвидированные)
+   * @param {string} [params.type=null] Фильтр по типу банковской организации BANK - банк, NKO - небанковская кредитная организация, BANK_BRANCH - филиал банка, NKO_BRANCH - филиал небанковской кредитной организации, RKC - РКЦ / ГРКЦ, OTHER - другое
+   * @return {promise<object[]>}
    */
-  bank(query, count) {
-    return this._client('bank', query, count)
+  bank(params) {
+    return this._client('bank', params)
   }
   /**
-   * Search email
-   * @param {string} query Email query
-   * @param {number} [count=10] Count of results
-   * @return {Promise}
+   * Подсказки по email
+   * @see {@link https://confluence.hflabs.ru/pages/viewpage.action?pageId=502038705|Документация}
+   * @param {object} params Параметры
+   * @param {string} params.query Запрос
+   * @param {number} [params.count=10] Кол-во возвращаемых результатов
+   * @return {promise<object[]>}
    */
-  email(query, count) {
-    return this._client('email', query, count)
+  email(params) {
+    return this._client('email', params)
   }
 }
 
