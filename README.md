@@ -12,7 +12,7 @@
 ```
 const Dadata = require('dadata-suggestions');
 const dadata = new Dadata(API_KEY);
-dadata.address('Невский', 30)
+dadata.address({ query: 'Невский', count: 5 })
     .then((data) => {
         console.log(data);
     })
