@@ -101,8 +101,8 @@ class Dadata {
    * @param {number} params.locations.kladr_id Двухзначный код региона по КЛАДР
    * @return {promise<object[]>}
    */
-  party(query, count) {
-    return this._client('party', query, count)
+  party(params) {
+    return this._client('party', params)
   }
   /**
    * Подсказки по банкам
