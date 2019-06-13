@@ -128,6 +128,15 @@ class Dadata {
   email(params) {
     return this._client('email', params)
   }
+  
+  /** Добавляет поддержку новых видов подсказки, которые изначально не 
+   * реализованы в этом модуле, сохраняя совместимость с имеющимся кодом
+   */ 
+  service(serviceName, params) {
+    return this._client(serviceName, params)
+  }
+  
+  
 }
 
 module.exports = Dadata;
